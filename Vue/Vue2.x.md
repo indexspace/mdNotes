@@ -315,4 +315,92 @@ var watchExampleVM = new Vue({
 
 ## class与style绑定
 
-> 
+### 绑定class
+
+```html
+<div v-bind:class="{ class: bool }"></div>
+```
+
+
+
+### 绑定style
+
+```html
+<div v-bind:style="{ color: myColor, fontSize: mySize + 'px' }"></div>
+```
+
+```js
+data: {
+  myColor: 'red',
+  mySize: 30
+}
+```
+
+
+
+## 条件渲染
+
+### v-if
+
+**key**
+
+> Vue 会尽可能高效地渲染元素，通常会复用已有元素而不是从头开始渲染，
+>
+> 切换相同标签元素时，元素内容不变，要想不同元素相互独立(不被复用)，可以用**key**
+
+
+
+### v-show
+
+```html
+<h1 v-show="ok">Hello!</h1>
+```
+
+> `v-if`和`v-show`功能上一致，
+>
+> 不同的是带有 `v-show` 的元素始终会被渲染并保留在 DOM 中，
+>
+> `v-show` 只是简单地**切换元素的 CSS property `display`**
+
+
+
+## 列表渲染
+
+### v-for里的对象
+
+```html
+<div v-for="(value, key, index) in object">  {{ index }}. {{ key }}: {{ value }}</div>
+```
+
+> 上述代码,
+>
+> `object` 是字典, 
+>
+> `key` 和 `value` 分别是键和值,
+>
+> `index` 是从0开始的索引
+
+### 数值更新检查
+
+> 控制台对数值进行操作, 页面也会自动同步
+
+
+
+## *事件处理
+
+
+
+## *表单输入绑定
+
+
+
+## *组件基础
+
+
+
+# *深入了解组件
+
+
+
+
+
