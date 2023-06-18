@@ -50,9 +50,78 @@
 
 
 
-
 # 配置swagger
 
-
+## 配置信息 *ApiInfo*
 
 ![image-20230616114842165](./image-20230616114842165.png)
+
+
+
+## 扫描接口 *apis*
+
+```java
+@Bean
+public Docket docket(){
+
+    return new Docket(DocumentationType.SWAGGER_2)
+        // 为Docket设置信息
+        .apiInfo(apiInfo())
+        // 转化为ApiSelectorBuilder才可以设置扫描 ======================
+        .select()
+        // 指定扫描的包, 包下的API将被写成文档
+        .apis(RequestHandlerSelectors.basePackage("com.czp.swagger.controller"))
+        // 再转化为Docket返回 ==========================================
+        .build();
+}
+```
+
+> 项目结构如下![image-20230618171552533](./image-20230618171552533.png)
+
+
+
+##  设置开关
+
+> 我们想要特定的环境下用swagger, 而其他环境不用, 该怎么办呢?
+
+> 根据不同环境来设置swagger的开与关
+
++ 写几套环境
+    +  application.yml     `spring.profiles.active=dev`
+    + application-dev.yml    `server.port=8081`
+    + application-pro.yml     `server.port=8082`
++ 在SwaggerConfig配置![image-20230618182404105](./image-20230618182404105.png)
+
+
+
+## 分组
+
+不同的Docket设置不同的`groupName("")`以实现分组![image-20230618191952047](./image-20230618191952047.png)
+
+效果如下: ![image-20230618191916189](./image-20230618191916189.png)
+
+
+
+## 注释
+
+> 当一个**实体类**被某个接口作为返回值时, `swagger`的 **model **就可以显示该 实体类<img src="./image-20230618192835433.png" alt="image-20230618192835433" style="zoom:150%;" />
+
+
+
+我们可以通过在**源码**中增加**注解**以在swagger的**model**的实体类增加**注释**
+
+>  `@ApiModel("类注释")`
+>
+> `@ApiModelProperty("属性注释")`
+
+![image-20230618192818594](./image-20230618192818594.png)	
+
+效果如下: <img src="./image-20230618192809553.png" alt="image-20230618192809553" style="zoom:120%;" />
+
+
+
+*其他注释*
+
+![image-20230618193531350](./image-20230618193531350.png)
+
+效果: ![image-20230618193608918](./image-20230618193608918.png)
