@@ -221,13 +221,16 @@ public class HelloHandler {
 
 + `@RequestParam(value="args", required=false, defaultValue="0")`  *// required=true 表必须填写*
 
-## cookie            
+## cookie
+
 `@CookieValue("JSESSIONID")`
 
-## POJO           
+## POJO
+
 // 业务方法调用指定对象的**无参构造**方法, 视图表单将指定的参数以**setter()**的方式写入对象 
 
-## 转发与重定向            
+## 转发与重定向
+
 + 默认转发,  
 + 欲重定向,则返回值为 `"redirect:/WEN-INF/jsp/hello.jsp"`, 
 + // WEN-INF/jsp/hello.jsp 表示完整路径
@@ -423,6 +426,10 @@ public String add04(HttpSession session, User user){
 ## 业务数据无法绑定至jsp视图页面
 
 在对应的jsp文件开头写上`<%@ page isELIgnored="false"%>`即可
+
+## 无法访问页面
+
+<img src="./image-20230904181318160.png" alt="image-20230904181318160" style="zoom:67%;" />
 
 
 

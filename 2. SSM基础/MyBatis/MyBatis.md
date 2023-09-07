@@ -151,7 +151,6 @@ mysql -u root -p123456
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-
     <environments default="development">
         <environment id="development">
             <transactionManager type="JDBC"/>
@@ -163,7 +162,6 @@ mysql -u root -p123456
             </dataSource>
         </environment>
     </environments>
-
     <mappers>
         <mapper resource="org/czp/dao/Mapper.xml"/>
     </mappers>

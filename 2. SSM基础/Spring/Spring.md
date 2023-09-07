@@ -235,7 +235,7 @@ xsi:schemaLocation="
         http://www.springframework.org/schema/aop
         http://www.springframework.org/schema/aop/spring-aop.xsd
 ">
-    <context:component-scan base-package="Student"/>
+    <context:component-scan base-package="pojo"/>
     <context:annotation-config/>
 
 
