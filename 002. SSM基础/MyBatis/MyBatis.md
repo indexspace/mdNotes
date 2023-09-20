@@ -4,6 +4,10 @@
 
 ### 初次:
 
+[安装MySQL详细说明_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1NJ411J79W?p=3&vd_source=c89b8a0f62dff894bf18ace7e0f4c032)
+
+dev.mysql.com/get/Downloads
+
 1. 官网下载压缩包并解压至自定义目录下
 1. 配置环境变量
 1. 新增`my.ini`文件并写入相关配置
