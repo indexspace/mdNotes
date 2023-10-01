@@ -85,6 +85,38 @@ public List<Blog> setSortByBlogList(List<Blog> list) {
 
 
 
+## 自定义JsonUtils
+
+> 局部代码
+
+```java
+// ...
+public class JsonUtils {
+    // ...
+    public static String objectToJson(Object obj) {
+        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+        try {
+            return gson.toJson(obj);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    // ...
+    public static Object jsonToObject(String jsonString, Class<?> clazz) {
+
+        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+        Object obj = null;
+        try {
+            obj = gson.fromJson(jsonString, clazz);
+        } catch (JsonSyntaxException e) {
+            e.printStackTrace();
+        }
+        return obj;
+    }
+    // ...
+```
+
 
 
 
@@ -101,7 +133,36 @@ public List<Blog> setSortByBlogList(List<Blog> list) {
 >
 > 表示接受前端传递的json数据
 
-### ..
+### @FeignClient ==?==
+
+> ?
+
+### @TableId(value = "", type = IdType.*NONE*)
+
+> 枚举类`IdType`源码
+>
+> ```java
+> public enum IdType {
+>     AUTO(0),
+>     NONE(1),
+>     INPUT(2),
+>     ID_WORKER(3),
+>     UUID(4),
+>     ID_WORKER_STR(5);
+> 
+>     private final int key;
+> 
+>     private IdType(int key) {
+>         this.key = key;
+>     }
+> 
+>     public int getKey() {
+>         return this.key;
+>     }
+> }
+> ```
+
+
 
 
 
@@ -147,7 +208,9 @@ public List<Blog> setSortByBlogList(List<Blog> list) {
 
 > 一个表或一个类保存着另一个类的id, 在查询的时候用 *(本文件: <u>结构->列表中...sortName</u>)* 的方法以用uid补充完整指定类的全部信息
 
+## 控制层以Api结尾
 
+> 控制层除了以`Controller`结尾以外, 还会用到`Api`结尾, 通常以`Api`结尾的类会写进`Swagger`
 
 
 
@@ -156,3 +219,52 @@ public List<Blog> setSortByBlogList(List<Blog> list) {
 ## 代理冗余
 
 ![image-20230928160717257](./image-20230928160717257.png)
+
+
+
+## photoList
+
+1
+
+```java
+// ...
+IPage<StudyVideo> pageList = studyVideoService.page(page, queryWrapper);
+List<StudyVideo> list = pageList.getRecords();
+
+StringBuilder fileIds = new StringBuilder();
+for (StudyVideo item : list) {
+    if (StringUtils.isNotEmpty(item.getFileUid())) {
+        fileIds.append(item.getFileUid()).append(",");
+    }
+}
+//PictureList
+String result = this.pictureFeignClient.getPicture(fileIds.toString(), ",");
+List<Map<String, Object>> picList = webUtil.getPictureMap(result);
+
+for (StudyVideo item : list) {
+    List<String> photoList = new ArrayList<>();
+    for (Map<String, Object> map : picList) {
+        //因为资源可能有多个图片
+        String fileUid = item.getFileUid();
+        List<String> fileUids = StringUtils.changeStringToString(fileUid, ",");
+        for (String uid : fileUids) {
+            if (map.get("uid").toString().equals(uid)) {
+                photoList.add(map.get("url").toString());
+            }
+        }
+    }
+    item.setPhotoList(photoList);
+}
+```
+
+
+
+## getWechatOrCodeTicket
+
+![image-20231001114130031](./image-20231001114130031.png)
+
+
+
+# ==ReadMe==
+
+<img src="./image-20231001170453008.png" alt="image-20231001170453008" style="zoom: 50%;" />
