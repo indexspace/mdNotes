@@ -194,7 +194,11 @@ public class JsonUtils {
 
 ### QueryWrapper
 
-> 
+> 一般作为参数传递给查询函数
+
+### UUID
+
+> 用法: **UUID**.***randomUUID***().toString().replaceAll("-", "")
 
 
 
@@ -267,4 +271,4 @@ for (StudyVideo item : list) {
 
 # ==ReadMe==
 
-<img src="./image-20231001170453008.png" alt="image-20231001170453008" style="zoom: 50%;" />
+![image-20231003134004503](./image-20231003134004503.png)
