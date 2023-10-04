@@ -119,6 +119,44 @@ public class JsonUtils {
 
 
 
+## MarkdownToHtml ?
+
+> [Markdown转Html应用与实践-CSDN博客](https://blog.csdn.net/u012791490/article/details/125244021?ops_request_misc=%7B%22request%5Fid%22%3A%22169640945816800211513392%22%2C%22scm%22%3A%2220140713.130102334..%22%7D&request_id=169640945816800211513392&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduend~default-2-125244021-null-null.142^v94^chatsearchT3_1&utm_term=MutableDataSet&spm=1018.2226.3001.4187)
+>
+> [java中markdown语法转换成html_com.vladsch.flexmark-CSDN博客](https://blog.csdn.net/weixin_43790879/article/details/103080597?ops_request_misc=%7B%22request%5Fid%22%3A%22169640945816800211513392%22%2C%22scm%22%3A%2220140713.130102334..%22%7D&request_id=169640945816800211513392&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduend~default-1-103080597-null-null.142^v94^chatsearchT3_1&utm_term=MutableDataSet&spm=1018.2226.3001.4187)
+
+```java
+public static String markdownToHtml(String markdown) {
+        MutableDataSet options = new MutableDataSet().set(Parser.EXTENSIONS, Arrays.asList(
+                AutolinkExtension.create(),
+                EmojiExtension.create(),
+                StrikethroughExtension.create(),
+                TaskListExtension.create(),
+                TablesExtension.create()
+        ))
+                // set GitHub table parsing options
+                .set(TablesExtension.WITH_CAPTION, false)
+                .set(TablesExtension.COLUMN_SPANS, false)
+                .set(TablesExtension.MIN_HEADER_ROWS, 1)
+                .set(TablesExtension.MAX_HEADER_ROWS, 1)
+                .set(TablesExtension.APPEND_MISSING_COLUMNS, true)
+                .set(TablesExtension.DISCARD_EXTRA_COLUMNS, true)
+                .set(TablesExtension.HEADER_SEPARATOR_COLUMN_MATCH, true)
+
+                // setup emoji shortcut options
+                // uncomment and change to your image directory for emoji images if you have it setup
+                //.set(EmojiExtension.ROOT_IMAGE_PATH, emojiInstallDirectory())
+                .set(EmojiExtension.USE_SHORTCUT_TYPE, EmojiShortcutType.GITHUB)
+                .set(EmojiExtension.USE_IMAGE_TYPE, EmojiImageType.IMAGE_ONLY)
+                // other options
+                ;
+        Parser parser = Parser.builder(options).build();
+        HtmlRenderer renderer = HtmlRenderer.builder(options).build();
+        Node document = parser.parse(markdown);
+        return renderer.render(document);
+    }
+```
+
 
 
 
@@ -200,6 +238,10 @@ public class JsonUtils {
 
 > 用法: **UUID**.***randomUUID***().toString().replaceAll("-", "")
 
+### UuidUtils
+
+> UuidUtils.***getUUID***();
+
 
 
 # 思想
@@ -263,12 +305,14 @@ for (StudyVideo item : list) {
 
 
 
-## getWechatOrCodeTicket
+## 微信扫码
 
 ![image-20231001114130031](./image-20231001114130031.png)
 
+## 第三方登录
 
+![image-20231004155740209](./image-20231004155740209.png)
 
 # ==ReadMe==
 
-![image-20231003134004503](./image-20231003134004503.png)
+![](./image-20231004171846391.png)
