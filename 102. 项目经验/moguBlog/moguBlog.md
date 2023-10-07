@@ -1,3 +1,11 @@
+# ==ReadMe==
+
+**web**接口文档简单看了一遍
+
+**picture**接口文档看了, 不太懂
+
+**admin**接口文档, 没看
+
 #  结构
 
 ## 条件构造器>分页查询
@@ -159,8 +167,6 @@ public static String markdownToHtml(String markdown) {
 
 
 
-
-
 # 局部
 
 ## 注解
@@ -170,10 +176,6 @@ public static String markdownToHtml(String markdown) {
 > 用于形参
 >
 > 表示接受前端传递的json数据
-
-### @FeignClient ==?==
-
-> ?
 
 ### @TableId(value = "", type = IdType.*NONE*)
 
@@ -214,6 +216,10 @@ public static String markdownToHtml(String markdown) {
 
 > 用法: StringUtils.**isEmpty**(*mystr*)
 
+### URLDecoder
+
+> **URLDecoder**.***decode***(*url*, "utf-8");
+
 
 
 ## 接口
@@ -225,6 +231,22 @@ public static String markdownToHtml(String markdown) {
 > 实现IService的类可以使用`save` `remove` `update` `get` `list` `page`等CURD操作, 
 >
 > 其中page函数很方便 *(在本文: <u>结构->条件构造器>分页查询</u> 可见)*
+
+### MP相关接口 *(MyBatis-Plus)*
+
+**SuperMapper** -> BaseMapper
+
+> 实现mapper的**通用的 基础的**CURD操作, 
+
+**SuperService** -> Iservice
+
+> 实现Service的**高级的 抽象的**CURD操作, 如**批量操作 分页查询**
+
+**SuperEntity** -> Model
+
+> **直接**实现简单的POJO的CURD操作
+
+
 
 
 
@@ -241,6 +263,10 @@ public static String markdownToHtml(String markdown) {
 ### UuidUtils
 
 > UuidUtils.***getUUID***();
+
+### MultipartFile ?
+
+> 文件传输相关的类, 具体不详
 
 
 
@@ -313,6 +339,13 @@ for (StudyVideo item : list) {
 
 ![image-20231004155740209](./image-20231004155740209.png)
 
-# ==ReadMe==
+## 文件上传
 
-![](./image-20231004171846391.png)
+> request
+>
+> 系统配置
+>
+> 七牛云 各种地址
+
+![image-20231007101527746](./image-20231007101527746.png)
+
