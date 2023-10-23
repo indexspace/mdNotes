@@ -365,3 +365,179 @@ class DataRedisDemoApplicationTests {
 }
 ```
 
+# 缓存问题
+
+## 缓存穿透
+
+
+
+## 缓存雪崩
+
+
+
+## 缓存击穿
+
+
+
+# 分布式锁
+
+根据Redis的`SETNX`命令的互斥性来构建多个线程之间共同的锁
+
+
+
+## SETNX命令
+
+### 定义锁:
+
+```java
+package com.example.dataredisdemo.utils;
+
+import org.springframework.data.redis.core.StringRedisTemplate;
+
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
+
+public class RedisLock {
+    private StringRedisTemplate redisTemplate;
+    private String name;
+    private final static String PREFIX = "LOCK:";
+    private final static String ID_PREFIX = UUID.randomUUID().toString() + "-";
+
+    // 传入锁的名称、StringRedisTemplate对象来构造锁
+    public RedisLock(StringRedisTemplate redisTemplate, String name) {
+        this.redisTemplate = redisTemplate;
+        this.name = name;
+    }
+
+    // 获取锁, return成功与否
+    public boolean tryLock(Long timeoutSec) {
+        // 当前线程ID
+        String threadId = ID_PREFIX + Thread.currentThread().getId();
+        Boolean ifAbsent = redisTemplate.opsForValue().setIfAbsent(PREFIX + name, threadId, timeoutSec, TimeUnit.SECONDS);
+        return Boolean.TRUE.equals(ifAbsent);
+    }
+
+    // 释放锁
+    public void unlock(){
+        // 当前线程ID
+        String threadId = ID_PREFIX + Thread.currentThread().getId();
+        String id = redisTemplate.opsForValue().get(PREFIX + name);
+        // 确保当前线程删除的锁是自己的
+        if(threadId.equals(id)) {
+            redisTemplate.delete(PREFIX + name);
+        }
+    }
+}
+```
+
+
+
+### 使用锁
+
+```java
+@SpringBootTest
+class DataRedisDemoApplicationTests {
+
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
+    
+    @Test
+    void testLock() {
+        // 创建锁对象
+        RedisLock lock = new RedisLock(stringRedisTemplate, "czpLockName");
+        // 获取锁
+        if (!lock.tryLock(50L)) {
+            System.out.println("获取锁失败");
+        }
+        System.out.println("获取锁成功");
+        // 释放锁
+        lock.unlock();
+    }
+}
+```
+
+
+
+## Redisson入门
+
+springBoot整合
+
+### maven坐标
+
+![image-20231019143613487](./image-20231019143613487.png)
+
+
+
+### 配置类
+
+![image-20231019143634408](./image-20231019143634408.png)
+
+
+
+### 使用分布式锁
+
+![image-20231019144023732](./image-20231019144023732.png)
+
+
+
+# 数据类型
+
+## GEO
+
+> 用于记录地理位置,
+>
+> 存储数据为  经度、纬度、值
+>
+> 包含方法为: 计算两点距离, 搜索指定范围内包含的点, ...
+
+
+
+## BitMap
+
+> 用比特位来存储业务状态的映射
+
+> BitMap实现签到功能
+>
+> ![image-20231019165525003](./image-20231019165525003.png)
+
+## HyperLogLog
+
+> 一种概率算法, 存入一系列数据(不可重复), 可以获取数据个数, 适合做网页UV统计
+
+![image-20231019171604790](./image-20231019171604790.png)
+
+
+
+# 持久化
+
+## RDB(快照)
+
+
+
+
+
+## AOF
+
+# Redis集群
+
+主从集群、哨兵集群、分片集群的搭建
+
+http://t.csdnimg.cn/vEvxg
+
+
+
+
+
+# Lua脚本
+
+编写脚本
+
+![image-20231023190210439](./image-20231023190210439.png)
+
+*根据Lua脚本*定义RedisScript对象
+
+![image-20231023190120108](./image-20231023190120108.png)
+
+调用`stringRedisTemplate.execute(RedisScript, keyList, value1, ..)`
+
+![image-20231023190557533](./image-20231023190557533.png)
