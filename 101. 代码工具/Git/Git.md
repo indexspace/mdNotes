@@ -12,7 +12,7 @@
 
 ## git bash克隆至文件夹
 
-1. 同`IDEA克隆`的`1.`  *复制HTTPS链接*
+1. 同`IDEA克隆`的  *复制HTTPS链接*
 1. ![image-20230506124700993](./image-20230506124700993.png)
 
 3. 语法`git clone HTTPS_Url`![image-20230506124748549](./image-20230506124748549.png)

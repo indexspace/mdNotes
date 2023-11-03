@@ -482,6 +482,10 @@ springBoot整合
 
 # 数据类型
 
+
+
+![image-20231024150303470](./image-20231024150303470.png)
+
 ## GEO
 
 > 用于记录地理位置,
@@ -505,6 +509,8 @@ springBoot整合
 > 一种概率算法, 存入一系列数据(不可重复), 可以获取数据个数, 适合做网页UV统计
 
 ![image-20231019171604790](./image-20231019171604790.png)
+
+
 
 
 
@@ -541,3 +547,6 @@ http://t.csdnimg.cn/vEvxg
 调用`stringRedisTemplate.execute(RedisScript, keyList, value1, ..)`
 
 ![image-20231023190557533](./image-20231023190557533.png)
+
+
+
