@@ -245,3 +245,273 @@ find 起始地址 -size (+|-)n[kMG]
 find / -size +10G
 ```
 
+
+
+## grep-wc-管道符
+
+### grep
+
+![img_v2_dba6c6be-c116-4166-8a50-b07e8ccb9dag](./img_v2_dba6c6be-c116-4166-8a50-b07e8ccb9dag.jpg)
+
+```bash
+grep [-n] 关键字 文件路径
+```
+
+
+
+### wc
+
+<img src="./img_v2_ae9e3461-24bf-4ec8-84d2-f0a286e105fg.jpg" alt="img_v2_ae9e3461-24bf-4ec8-84d2-f0a286e105fg" style="zoom:67%;" />
+
+```bash
+wc [-c -m -l -w] 文件路径
+# 不填选项则默认返回 行数、单词数、bytes
+```
+
+
+
+### 管道符
+
+![img_v2_9f89dc81-34f5-4140-8da6-747c837bf90g](./img_v2_9f89dc81-34f5-4140-8da6-747c837bf90g.jpg)
+
+可以嵌套使用
+
+```bash
+# e.g. 返回czp.txt文件中带有"key"的所有行的单词总数
+cat czp.txt | grep -n "key" | wc -w
+```
+
+
+
+## echo-重定向符-tail
+
+### echo
+
+<img src="./img_v2_f69169f7-ff17-41e6-92f7-02e16bab3e9g.jpg" alt="img_v2_f69169f7-ff17-41e6-92f7-02e16bab3e9g" style="zoom:50%;" />
+
+<img src="./img_v2_9f0a1d37-012b-4cd7-8e76-e6770f706e2g.jpg" alt="img_v2_9f0a1d37-012b-4cd7-8e76-e6770f706e2g" style="zoom:50%;" />
+
+```bash
+echo "hello wolrd!"
+echo `pwd`
+```
+
+
+
+### 重定向符 
+
+<img src="./img_v2_ac210c5a-79c6-4985-83c6-1e681ccd6abg.jpg" alt="img_v2_ac210c5a-79c6-4985-83c6-1e681ccd6abg" style="zoom:50%;" />
+
+```bash
+# 追加: 可输出语句 >> 文件名
+# 覆盖: 可输出语句 > 文件名
+echo "hello world" >> czp.txt
+```
+
+
+
+### tail
+
+<img src="./img_v2_e931b51e-3cda-4379-988f-767c724246ag.jpg" alt="img_v2_e931b51e-3cda-4379-988f-767c724246ag" style="zoom:50%;" />
+
+```bash
+tail [-f -num] 文件路径
+
+# e.g. 看文件的后15行并持续监听文件更新(按Ctrl+C停止监听)
+tail -f -15 /home/czp/demo.txt
+```
+
+**-num** 的`num`是具体的数字
+
+
+
+## vi/vim
+
+### 介绍
+
+> vim是vi的增强版本
+
+<img src="./img_v2_c55db97d-2130-4569-aa93-fb23917ebddg.jpg" alt="img_v2_c55db97d-2130-4569-aa93-fb23917ebddg" style="zoom:50%;" />
+
+<img src="./img_v2_57f1d48d-fd69-4824-9e60-1f5f4ba4c64g.jpg" alt="img_v2_57f1d48d-fd69-4824-9e60-1f5f4ba4c64g" style="zoom:50%;" />
+
+```bash
+vim demo.txt
+# 按下i进入编辑模式
+# 编辑...
+# 按下Ecs退出编辑模式
+
+:wq
+```
+
+
+
+### 命令模式快捷键
+
+<img src="./img_v2_074cbdf0-cdd2-4c86-805a-53738f18455g.jpg" alt="img_v2_074cbdf0-cdd2-4c86-805a-53738f18455g" style="zoom:50%;" />
+
+<img src="./img_v2_767be428-46cc-49fa-9453-07d663b1ef8g.jpg" alt="img_v2_767be428-46cc-49fa-9453-07d663b1ef8g" style="zoom:50%;" />
+
+
+
+### 底线命令模式快捷键
+
+<img src="./img_v2_c3f2ff22-a39f-48aa-960f-b9cbdedcaa2g.jpg" alt="img_v2_c3f2ff22-a39f-48aa-960f-b9cbdedcaa2g" style="zoom:50%;" />
+
+
+
+# 用户与权限
+
+## root用户
+
+<img src="./img_v2_693ea371-a26f-4e51-9298-065b51fff15g.jpg" alt="img_v2_693ea371-a26f-4e51-9298-065b51fff15g" style="zoom:50%;" />
+
+
+
+### su命令
+
+<img src="./img_v2_0c788c6c-e512-4e7e-87aa-ad7e7e1b8a6g.jpg" alt="img_v2_0c788c6c-e512-4e7e-87aa-ad7e7e1b8a6g" style="zoom:67%;" />
+
+```bash
+su [-] [用户名=root]
+```
+
+
+
+### sudo命令
+
+**为普通用户配置sudo认证**
+
+``` bash
+su -
+visudo
+i
+# 尾加: 用户名 ALL=(ALL)  /Tab隔开/  NOPASSWD: ALL
+:wq
+exit
+```
+
+<img src="./img_v2_8e9fbdc5-17dc-4300-b97b-f925106f3e2g.jpg" alt="img_v2_8e9fbdc5-17dc-4300-b97b-f925106f3e2g" style="zoom: 33%;" />
+
+
+
+**使用sudo命令**
+
+```bash
+sudo 需要权限的操作
+sudo mkdir /czpDemo
+```
+
+<img src="./img_v2_8d306771-27d5-43ff-ad96-f053b3cb163g.jpg" alt="img_v2_8d306771-27d5-43ff-ad96-f053b3cb163g" style="zoom:50%;" />
+
+
+
+## 用户与用户组
+
+### 用户组的增删
+
+<img src="./img_v2_9fe96357-f3b9-4b77-9db8-55d81ec53d9g-1699340304926-18.jpg" alt="img_v2_9fe96357-f3b9-4b77-9db8-55d81ec53d9g" style="zoom:50%;" />
+
+
+
+### 用户的增删查改
+
+<img src="./img_v2_87011879-16e5-4b72-b71f-a82c491fa91g.jpg" alt="img_v2_87011879-16e5-4b72-b71f-a82c491fa91g" style="zoom:67%;" />
+
+<img src="./img_v2_2e501faf-1d24-477a-a6a2-37f78dc1ed6g.jpg" alt="img_v2_2e501faf-1d24-477a-a6a2-37f78dc1ed6g" style="zoom: 67%;" />
+
+  ```bash
+  # e.g.
+  useradd czp -g stuent -d /home/stuent/czp
+  usermod -aG stuent czp
+  ```
+
+
+
+### getent
+
+#### getnet passwd
+
+<img src="./img_v2_6dd59fe7-6d62-4346-a9d6-320c415a1f6g.jpg" alt="img_v2_6dd59fe7-6d62-4346-a9d6-320c415a1f6g" style="zoom:50%;" />
+
+
+
+#### getnet group
+
+<img src="./img_v2_3db6fdf7-d8b3-4cc6-89bf-eed7c461670g.jpg" alt="img_v2_3db6fdf7-d8b3-4cc6-89bf-eed7c461670g" style="zoom:50%;" />
+
+
+
+## 查看权限
+
+<img src="./img_v2_5b77825b-fd4c-4cc8-98f1-bbeb4d80118g.jpg" alt="img_v2_5b77825b-fd4c-4cc8-98f1-bbeb4d80118g" style="zoom:67%;" />
+
+<img src="./img_v2_3a9cbf6f-8f07-4a10-b5de-598bbae6b43g.jpg" alt="img_v2_3a9cbf6f-8f07-4a10-b5de-598bbae6b43g" style="zoom:67%;" />
+
+<img src="./img_v2_dba6c6be-c116-4166-8a50-b07e8ccb9dag-1699340615562-26.jpg" alt="img_v2_dba6c6be-c116-4166-8a50-b07e8ccb9dag" style="zoom:67%;" />
+
+
+
+## chmod命令
+
+> 修改文件(夹)权限
+
+![image-20231107150616158](./image-20231107150616158.png)
+
+```bash
+chmod -R u=rwx,g=rx,o=x /hmoe/czp/hello
+```
+
+
+
+> 权限的简单表示<img src="./image-20231107151015991.png" alt="image-20231107151015991" style="zoom:50%;" />
+>
+> ```bash
+> chmod -R 751 /hmoe/czp/hello
+> ```
+
+
+
+## chown命令
+
+> 修改文件(夹)所属用户(组),  **root级命令**
+
+<img src="./image-20231107151442784.png" alt="image-20231107151442784" style="zoom:50%;" />
+
+```bash
+chown [-R] [user][:group] /../file
+```
+
+
+
+# 杂
+
+## 小技巧快捷键
+
+### ctrl+c
+
+<img src="./image-20231107152215578.png" alt="image-20231107152215578" style="zoom:50%;" />
+
+### ctrl+d
+
+<img src="./image-20231107152327625.png" alt="image-20231107152327625" style="zoom:50%;" />
+
+### history
+
+<img src="./image-20231107152520248.png" alt="image-20231107152520248" style="zoom: 67%;" />
+
+<img src="./image-20231107152812093.png" alt="image-20231107152812093" style="zoom:67%;" />
+
+#### ctrl+r
+
+![image-20231107152934224](./image-20231107152934224.png)
+
+### ctrl+l
+
+<img src="./image-20231107153219656.png" alt="image-20231107153219656" style="zoom:67%;" />
+
+
+
+## 安装软件
+
+<img src="./image-20231107153510060.png" alt="image-20231107153510060" style="zoom:67%;" />
