@@ -52,7 +52,7 @@
 
 
 
-# Linux命令
+# 基础命令
 
 ## 基础须知
 
@@ -387,6 +387,7 @@ su -
 visudo
 i
 # 尾加: 用户名 ALL=(ALL)  /Tab隔开/  NOPASSWD: ALL
+Esc
 :wq
 exit
 ```
@@ -484,7 +485,7 @@ chown [-R] [user][:group] /../file
 
 
 
-# 杂
+# 实用操作
 
 ## 小技巧快捷键
 
@@ -512,6 +513,415 @@ chown [-R] [user][:group] /../file
 
 
 
-## 安装软件
+## yum命令-安装软件
 
 <img src="./image-20231107153510060.png" alt="image-20231107153510060" style="zoom:67%;" />
+
+
+
+## systemctl命令
+
+![image-20231108101005670](./image-20231108101005670.png)
+
+<img src="./image-20231108101650217.png" alt="image-20231108101650217" style="zoom:50%;" />
+
+```bash
+systemctl start|stop|status|enable|disable 服务名
+```
+
+
+
+
+
+## In命令-创建软连接
+
+<img src="./image-20231108101844617.png" alt="image-20231108101844617" style="zoom:67%;" />
+
+```bash
+ln -s 被链接文件(名) 链接名(包含路径)
+```
+
+
+
+## date命令
+
+### date基础介绍
+
+<img src="./image-20231108102515951.png" alt="image-20231108102515951" style="zoom:67%;" />
+
+<img src="./image-20231108103841131.png" alt="image-20231108103841131" style="zoom:67%;" />
+
+```bash
+date [-d "+|-n unit .."] [+formatDateStr]
+```
+
+实操效果![image-20231108110009229](./image-20231108110009229.png)
+
+
+
+### 修改Linux时区
+
+***== =失败= ==***
+
+<img src="./image-20231108104208810.png" alt="image-20231108104208810" style="zoom:67%;" />
+
+```bash
+rm -f /etc/localtime
+sudo ln -s /user/share/zoneinfo/Asia/Shanghai /etc/localtime
+```
+
+
+
+### ntp校验时间
+
+<img src="./image-20231108110129887.png" alt="image-20231108110129887" style="zoom:67%;" />
+
+
+
+## IP和主机名
+
+### IP
+
+**IPv4版本地址查询**<img src="./image-20231108111005555.png" alt="image-20231108111005555" style="zoom:67%;" />
+
+特殊IP![image-20231108111213059](./image-20231108111213059.png)
+
+#### 配置Linux固定IP(略)
+
+> [第四章-07-配置Linux固定IP地址_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1n84y1i7td/?p=35&spm_id_from=pageDriver&vd_source=c89b8a0f62dff894bf18ace7e0f4c032)
+
+<img src="./image-20231108113525560.png" alt="image-20231108113525560" style="zoom:67%;" />
+
+
+
+
+
+### 主机名
+
+**查询主机名**
+
+![image-20231108111327660](./image-20231108111327660.png)
+
+```bash
+hostname
+```
+
+
+
+#### 修改主机名
+
+<img src="./image-20231108111419471.png" alt="image-20231108111419471" style="zoom:67%;" />
+
+```bash
+sudo hostnamectl set-hostname xxx
+```
+
+效果<img src="./image-20231108111655589.png" alt="image-20231108111655589" style="zoom:67%;" />
+
+
+
+### 域名
+
+<img src="./image-20231108111810609.png" alt="image-20231108111810609" style="zoom:50%;" />
+
+> 用域名映射IP, 即通过特定字符串访问对应IP
+
+<img src="./image-20231108112047433.png" alt="image-20231108112047433" style="zoom:67%;" />
+
+
+
+#### 配置主机名映射
+
+<img src="./image-20231108113002517.png" alt="image-20231108113002517" style="zoom:67%;" />
+
+
+
+## ping-wget-curl
+
+> 网络请求与下载
+
+### ping
+
+<img src="./image-20231108114120377.png" alt="image-20231108114120377" style="zoom:67%;" />
+
+```bash
+ping [-c num] ip|hostname
+```
+
+
+
+### wget-下载文件
+
+<img src="./image-20231108114626175.png" alt="image-20231108114626175" style="zoom:67%;" />
+
+```bash
+wget [-b] url
+```
+
+**-b** 表示后台下载, 这将会将日志保存到`wget-log`, 可以用`tail -f wget-log`查看进度
+
+
+
+### curl-网络请求
+
+<img src="./image-20231108114849546.png" alt="image-20231108114849546" style="zoom:67%;" />
+
+```bash
+curl [-O] url
+```
+
+
+
+## 端口
+
+### nmap
+
+<img src="./image-20231108150622428.png" alt="image-20231108150622428" style="zoom:50%;" />
+
+根据IP查看端口
+
+```bash
+nmap ip
+```
+
+
+
+### netstat
+
+<img src="./image-20231108150838900.png" alt="image-20231108150838900" style="zoom:67%;" />
+
+查看端口及占用其的进程之间的映射关系
+
+```bash
+netstat -anp | grep key
+```
+
+*key* 是搜索关键字, 可以是端口号 也可以是进程号
+
+> windows也有类似的命令
+>
+> ```bash
+> netstat -aon | findstr key
+> ```
+
+
+
+## 进程
+
+### ps
+
+<img src="./image-20231108151720357.png" alt="image-20231108151720357" style="zoom:67%;" />
+
+查看所有进程 (可配合管道符和grep命令来过滤)
+
+```bash
+ps [-e -f]
+ps -ef | grep xxx  #e.g.
+```
+
+
+
+### kill
+
+<img src="./image-20231108152435353.png" alt="image-20231108152435353" style="zoom:67%;" />
+
+```bash
+kill [-9] PID
+```
+
+**-9** 表示强制关闭
+
+**PID** 表示进程ID
+
+
+
+## 主机状态
+
+### top-资源监控
+
+<img src="./image-20231108153028267.png" alt="image-20231108153028267" style="zoom:50%;" />
+
+类似于windows的任务管理器
+
+```bash
+top
+```
+
+按`q`或`ctrl`+`c`退出
+
+**top命令选项**<img src="./image-20231108154157853.png" alt="image-20231108154157853" style="zoom:67%;" />
+
+**交互式选项**
+
+<img src="./image-20231108154751698.png" alt="image-20231108154751698" style="zoom:67%;" />
+
+> top命令返回内容详解
+>
+> <img src="./image-20231108153346500.png" alt="image-20231108153346500" style="zoom:67%;" />
+>
+> <img src="./image-20231108153758795.png" alt="image-20231108153758795" style="zoom:67%;" />
+
+
+
+### 磁盘监控
+
+#### df
+
+查看磁盘的使用率
+
+<img src="./image-20231108155300838.png" alt="image-20231108155300838" style="zoom:50%;" />
+
+
+
+#### iostat
+
+> 查看磁盘的速率
+
+> 可能要下载`sysstat`
+
+![image-20231108155305833](./image-20231108155305833.png)
+
+```bash
+iostat -x renewTime renewCount
+```
+
+
+
+> ![image-20231108155449263](./image-20231108155449263.png)
+
+
+
+### 网络监控
+
+<img src="./image-20231108155736324.png" alt="image-20231108155736324" style="zoom:67%;" />
+
+```bash
+sar -n DEV renewTime renewCount
+```
+
+**renewTime** 不填默认不刷新, 即无穷大
+
+**renewCount**  不填默认一直刷新, 即无穷大
+
+
+
+## 环境变量
+
+> ![image-20231108160812869](./image-20231108160812869.png)
+
+
+
+### env命令
+
+可以**查看环境变量**, 可以配合管道符和grep命令
+
+```bash
+env
+env | grep "PATH"
+```
+
+
+
+
+
+### $
+
+<img src="./image-20231108161021830.png" alt="image-20231108161021830" style="zoom:67%;" />
+
+```bash
+# 假设环境变量`name`=`czp`
+echo $name  # 输出czp
+echo hello,${name}  # 输出hello,czp
+```
+
+注意: **环境变量**可以用`$`或`${}`, 普通命令的执行需要用` `` `
+
+
+
+### 自设变量并应用
+
+**自行设置环境变量**
+
+<img src="./image-20231108162431716.png" alt="image-20231108162431716" style="zoom:67%;" />
+
+```bash
+vi ~/bashrc
+# `i`
+# export key=val
+# `Esc`
+# :wq
+source .bashrc
+scho ${key}  ## val
+```
+
+
+
+**应用**
+
+> 在一个**文件**内写入**Linux命令**
+>
+> 将该文件所在的**文件夹路径**写入**PATH** (临时或永久)
+
+![image-20231108163141153](./image-20231108163141153.png)
+
+
+
+## 上传与下载
+
+> 通过FinalShell工具浏览文件系统, 从而实现Linux与windows之间文件的交互
+
+![image-20231108181357127](./image-20231108181357127.png)
+
+### rz-sz
+
+<img src="./image-20231108181819602.png" alt="image-20231108181819602" style="zoom:67%;" />
+
+> **rz** 上传文件的速度不如拖拽
+>
+> <img src="./image-20231108182035842.png" alt="image-20231108182035842" style="zoom:50%;" />
+
+
+
+## 压缩与解压
+
+<img src="./image-20231108182327811.png" alt="image-20231108182327811" style="zoom: 50%;" />
+
+### tar
+
+<img src="./image-20231108182733690.png" alt="image-20231108182733690" style="zoom: 50%;" />
+
+```shell
+tar [-c -x -v -z -C -f] 参数1 参数2 ... 参数n
+tar -zcvf 压缩包 被压文件1 .. 被压文件n  ## 压缩
+tar -zxvf 被解压文件 -C 要解压去的地方  ## 解压
+```
+
+
+
+### zip
+
+```shell
+zip [-r] 压缩包 被压文件1 .. 被压文件n
+
+## zip czp.zip test1.txt test2.txt test3.txt
+## zip -r czp.zip folder test2.txt test3.txt
+```
+
+### unzip
+
+```shell
+unzip 解压包 [-d 要解压到的地方]
+
+## unzip czp.zip -d /home/czp/unzip
+```
+
+
+
+
+
+# 软件安装
+
+> 可以参考另外的笔记
+
+## MySQL
+
