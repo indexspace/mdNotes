@@ -1,4 +1,109 @@
-# *MySQL书写
+# 基础语法
+
+## database
+
++ `create database 库名;`
++ `drop database 库名;`
++ `use 库名;`
++ `show databases;`
+
+## table
+
+> `表名`可以写成`库名.表名`的形式, 也可以提前用`use 库名;`来指定库名
+
++ **`create table 表名(列1 类型 其他, ..., 列n 类型 其他);` **   // 注意**列**在前, 类型的多样, 其他的具体语法
++ `drop table 表名;`
++ `desc 表名;`  //查看表结构
+
+## alter table ..
+
++ `alter table 表名 raname to 新表名;`
++ `alter table 表名 add 列 类型 其他;`
++ `alter table 表名 drop 列;`
++ `alter table 表名 modify 列 新类型 (其他);`
++ `alter table 表名 change column 旧列 新列 新类型 (新其他);`
+
+## CURD
+
++ `insert into 库名.表名(字段1, .., 字段n) values(值1, .., 值n),(...),(...)...;`
+
+    + ```mysql
+        insert into test02.login(name, pwd) values("czp", "1234");
+        ```
+
+    + ```mysql
+        insert into test02.login(name, pwd) values("czp", "1234"),("tjw","helloworld");
+        ```
+
++ `delete from 库名.表名 [where ...]`   //不加where语句会删除全部数据!!!
+
++ `update 库名.表名 set 赋值语句 [where ..]`
+
++ ```mysql
+    select [distinct] *|列名1,列名2
+    from 表|视图 
+    [where 条件] 
+    [group by 列 [having 条件] ]  
+    [order by 列 asc|desc]
+    [limit 显示数量 offset 跳过数量] | [limit 跳过数量, 显示数量];
+    ```
+
++ 多表联查(举例)
+
+    + ```mysql
+        select * 
+        from a 
+        inner|left|right join b           -- 内左右
+        on a.id=b.id               
+        ```
+        
+    + ```mysql
+        select * from a
+        union   -- union自动去重, union all不去重
+        select * from b
+        ```
+
+
+
+## 其他
+
+### 视图
+
++ `create view xxx(字段1, .., 字段n) as select语句;`
+
++ `drop view xxx;`
+
+    
+
+### 约束
+
+![image-20231111162343338](./image-20231111162343338.png)
+
+
+
+### 索引
+
++ `create [unique] index index_name on table_name(column_name);`
++ `drop            index index_name on table_name;`
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

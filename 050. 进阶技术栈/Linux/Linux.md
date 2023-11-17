@@ -489,6 +489,18 @@ chown [-R] [user][:group] /../file
 
 ## 小技巧快捷键
 
+### 命令别名
+
+1. 调用`vim ~/bashrc`
+
+1. 进入输入模式, 键入`alias 命令别名=命令原名`
+
+1. 保存并退出
+
+1. 刷新更改 `source ~/bashrc`
+
+    
+
 ### ctrl+c
 
 <img src="./image-20231107152215578.png" alt="image-20231107152215578" style="zoom:50%;" />
@@ -925,3 +937,54 @@ unzip 解压包 [-d 要解压到的地方]
 
 ## MySQL
 
+```shell
+rpm --import https://repo.mysql.com/RPM-GPG-KEY-mysql-2022
+
+# ///////////
+rpm -Uvh http://repo.mysql.com//mysql57-community-release-el7-7.noarch.rpm #5.7
+rpm -Uvh https://dev.mysql.com/get/mysql80-community-release-el7-2.noarch.rpm #8.0
+# ///////////
+
+yum -y install mysql-community-server
+
+systemctl start mysqld
+systemctl enable mysqld
+systemctl status mysqld
+
+grep 'temporary password' /var/log/mysqld.log  # 通过grep命令，在/var/log/mysqld.log文件中，过滤temporary password关键字，得到初始密码
+
+mysql -uroot -p  # 执行完毕后输入刚刚得到的初始密码，即可进入MySQL数据库
+
+# /////////////
+SET PASSWORD = PASSWORD('Zxcv.802234'); #5.7
+ALTER USER 'root`@`localhost' IDENTIFIED BY 'Zxcv.802234'; #8.0
+# ////////////	
+
+exit  # 退出命令
+```
+
+
+
+## Redis
+
+```shell
+yum install -y epel-release
+yum install -y redis
+
+systemctl enable redis
+systemctl start redis
+
+systemctl stop firewalld
+systemctl disable firewalld
+
+redis-cli
+
+set key val
+get key  ## val
+```
+
+
+
+## othor
+
+![image-20231108202406916](./image-20231108202406916.png)

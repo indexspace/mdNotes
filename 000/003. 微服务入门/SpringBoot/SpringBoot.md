@@ -188,6 +188,22 @@ DemoApplicationTests.java **同上(常规注入方法)**
 
 
 
+#### @Value(${..})注入
+
+另外 我们可以通过一下方法来注入属性
+
+```java
+@Configuration
+public class CommonConfig{
+    @Bean
+    public User user(@Value(${user.id}) String id, @Value(${user.name}) String name) {
+        return new User(id, name);
+    }
+}
+```
+
+
+
 ### JSR303校验
 
 #### 示范
@@ -215,6 +231,20 @@ pom.xml
 ```
 
 #### 其他约束(不完整)![image-20230427141739289](./image-20230427141739289.png)
+
+
+
+## @Condition相关
+
+这个注解要配合`Configuration`下的`@Bean`使用
+
+![image-20231113173736320](./image-20231113173736320.png)
+
+> ![image-20231113174102437](./image-20231113174102437.png)
+>
+> ![image-20231113173958052](./image-20231113173958052.png)
+
+
 
 
 
