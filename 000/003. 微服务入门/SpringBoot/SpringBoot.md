@@ -324,7 +324,7 @@ test环境
 
 将`index.html`作为静态文件存放于指定的位置  *见:导入静态资源*
 
-### 图标定制 
+### 图标定制
 
 在`application.properties`文件中加上`spring.mvc.favicon.enable=false`语句以关闭默认图标
 
@@ -664,7 +664,7 @@ spring:
       username: root
       password: 123456
       jdbc-url: jdbc:mysql://localhost:3306/mybatis?userUnicode=true&characterEncode=utf-8&serverTimezone=UTC
-      driver-class-name: com.mysql.dbc.Driver
+      driver-class-name: com.mysql.cj.jdbc.Driver
 ```
 
 ### JdbcTemplate 

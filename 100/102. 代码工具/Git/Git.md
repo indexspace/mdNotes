@@ -34,7 +34,7 @@
 + 将本地同步至远程
     1. `git add .`
     1. `git commit -m "myCommitMessage"`
-    1. `git push`
+    1. `git push`  // 这一步 可能出错, 需要用图形化界面来键入``username`(gitee绑定的邮箱)和`password`(gitee登录的密码)
 
 + 将远程同步至本地
     + `git pull`
