@@ -1,0 +1,145 @@
+# blog
+
+## 泛型
+
+<img src="./image-20231121145453651.png" alt="image-20231121145453651" style="zoom:67%;" />
+
+
+
+## ==全局异常处理==
+
+> 将报错 变成 指定格式的输出 (如Result)
+
+![image-20231121143724616](./image-20231121143724616.png)
+
+
+
+## JWT
+
+### 理论
+
+简介
+
+![image-20231121145317260](./image-20231121145317260.png)
+
+依赖导入 && JWT生成
+
+![image-20231121145854947](./image-20231121145854947.png)
+
+JWT验证
+
+![image-20231121150336414](./image-20231121150336414.png)
+
+### 实战1
+
+#### 工具类![image-20231121150759902](./image-20231121150759902.png)
+
+```java
+package czp.login.util;
+
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
+
+import java.util.Date;
+import java.util.Map;
+
+public class JWTUtil {
+
+    private static final String SECRET_KEY = "czp";
+
+    public static String getToken(Map<String, Object> claims) {
+        return JWT.create()
+                .withClaim("claims", claims)
+                .withExpiresAt(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 12))
+                .sign(Algorithm.HMAC256(SECRET_KEY));
+    }
+
+    public static Map<String, Object> parseToken(String token) {
+        return JWT.require(Algorithm.HMAC256(SECRET_KEY))
+                .build()
+                .verify(token)
+                .getClaim("claims")
+                .asMap();
+    }
+}
+```
+
+
+
+#### 生成并返回JWT
+
+>  登录页面
+
+![image-20231121151215927](./image-20231121151215927.png)
+
+
+
+#### 获取JWT并校验  
+
+> (可以用`实战2`来替换)
+
+![image-20231121151413637](./image-20231121151413637.png)
+
+
+
+### 实战2
+
+#### 实现拦截器
+
+![image-20231121153136748](./image-20231121153136748.png)
+
+```java
+package czp.login.interceptor;
+
+import czp.login.util.JWTUtil;
+import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.HandlerInterceptor;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Map;
+
+@Component
+public class LoginInterceptor implements HandlerInterceptor {
+    @Override
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        String token = request.getHeader("Authorization");
+        try {
+            Map<String, Object> map = JWTUtil.parseToken(token);
+            return true;
+        }
+        catch (Exception e) {
+            response.setStatus(401);
+            return false;
+        }
+    }
+}
+```
+
+
+
+#### 注册拦截器
+
+![image-20231121153251435](./image-20231121153251435.png)
+
+```java
+package czp.login.config;
+
+import czp.login.interceptor.LoginInterceptor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+@Configuration
+public class WebConfig implements WebMvcConfigurer {
+    @Autowired
+    private LoginInterceptor loginInterceptor;
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(loginInterceptor).excludePathPatterns("/user/signUp", "/user/signIn");
+    }
+}
+```
+
