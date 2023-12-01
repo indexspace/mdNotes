@@ -1,5 +1,7 @@
 # 相关链接
 
+![image-20231127163922617](./image-20231127163922617.png)
+
 Validated: [@Validated分组校验_CSDN博客](https://blog.csdn.net/goxingman/article/details/130201679?ops_request_misc=&request_id=&biz_id=102&utm_term=@Validated({GetList.class})&utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduweb~default-0-130201679.142^v95^chatgptT3_1&spm=1018.2226.3001.4187)
 
 valid && validated && BindingResult: [@Valid，@Validated 的分组校验和嵌套检验_CSDN博客](https://jiming.blog.csdn.net/article/details/127965610?spm=1001.2101.3001.6650.3&utm_medium=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~Rate-3-127965610-blog-130201679.235^v38^pc_relevant_default_base&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~Rate-3-127965610-blog-130201679.235^v38^pc_relevant_default_base&utm_relevant_index=6)
