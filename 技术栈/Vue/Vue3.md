@@ -995,12 +995,6 @@ request.get('/xxx', params);
 
 
 
-## 跨域问题
-
-简单解决: 在对应的后端控制层加上注解**`@CrossOrigin`**
-
-详细解决: [实战篇-61_大事件_跨域解决_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV14z4y1N7pg?p=73&spm_id_from=pageDriver&vd_source=c89b8a0f62dff894bf18ace7e0f4c032)
-
 
 
 ## ==| vue-router==
@@ -1024,6 +1018,49 @@ request.get('/xxx', params);
 ![image-20231204165901793](./image-20231204165901793.png)
 
 2. 设置index属性![image-20231204164346123](./image-20231204164346123.png)
+
+
+
+
+
+## 问题解决
+
+
+
+### 跨域问题
+
+简单解决: 在对应的后端控制层加上注解**`@CrossOrigin`**
+
+详细解决: [实战篇-61_大事件_跨域解决_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV14z4y1N7pg?p=73&spm_id_from=pageDriver&vd_source=c89b8a0f62dff894bf18ace7e0f4c032)
+
+![image-20231205174014646](./image-20231205174014646.png)
+
+> <img src="./image-20231205174134417.png" alt="image-20231205174134417" style="zoom:67%;" />
+
+
+
+
+
+### useRouter引入错误
+
+> [Vue warn]: inject() can only be used inside setup() or functional components.
+
+将
+
+```js
+import { useRouter } from 'vue-router';
+const router = useRouter();
+```
+
+换成
+
+```js
+import router from '@/router/index.js'
+```
+
+> 其中, 路径为`@/router/index.js`文件内容如下;
+>
+> <img src="./image-20231205185924002.png" alt="image-20231205185924002" style="zoom: 67%;" />
 
 
 
