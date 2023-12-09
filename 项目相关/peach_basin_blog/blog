@@ -405,6 +405,8 @@ public class Article {
 
 ### 文件上传工具类
 
+`*` -> `L`
+
 ```java
 package czp.login.util;
 
@@ -421,8 +423,8 @@ public class AliOssUtil {
 
     public static final String ENDPOINT = "oss-cn-beijing.aliyuncs.com";
     public static final String BUCKETNAME = "peach-basin-blog";
-    public static final String ACCESS_KEY_ID = "LTAI5tMnQLUnhn3CRfrYrdjW";
-    public static final String ACCESS_KEY_SECRET = "NQtqSFlHtRECU8Oic6LSzEV79HPLkI";
+    public static final String ACCESS_KEY_ID = "*TAI5tMnQLUnhn3CRfrYrdjW";
+    public static final String ACCESS_KEY_SECRET = "NQtqSFlHtRECU8Oic6LSzEV79HP*kI";
 
     public static String uploadFile(String objectName, InputStream inputStream) throws Exception {
         OSS ossClient = new OSSClientBuilder()

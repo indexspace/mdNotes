@@ -873,9 +873,13 @@ app.mount('#app');
 
 
 
-## 传参类型 ?
+## 传参类型 
 
-### 请求参数
+[axios常见传参方式及基本使用_axios 传递config配置参数-CSDN博客](https://blog.csdn.net/qq_44166697/article/details/107907091?ops_request_misc=&request_id=&biz_id=102&utm_term=axios 对于各种类型请求方式的传参形式&utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduweb~default-2-107907091.142^v96^pc_search_result_base1&spm=1018.2226.3001.4187)
+
+
+
+### 请求参数 | get | delete
 
 ```js
 const p = {
@@ -888,7 +892,7 @@ request.get('/xxx', {params:{...p}});
 
 
 
-### Json
+### Json | post | put | patch
 
 ```js
 const p = {
@@ -1061,6 +1065,40 @@ import router from '@/router/index.js'
 > 其中, 路径为`@/router/index.js`文件内容如下;
 >
 > <img src="./image-20231205185924002.png" alt="image-20231205185924002" style="zoom: 67%;" />
+
+
+
+### 前端POST请求, 后端数据为空
+
+> 问题详述: 
+>
+> 用前端发送携带参数的POST请求, 后端显示数据为null, 但是PostMan测试后端无问题, 
+>
+> 将前后端请求均改为GET, 前端再次发送请求, 后端接受的参数正常
+
+最终解决方案: 
+
+> **POST**传的是**JSON**
+>
+> **后端**需要用**`@RequestBody`**接受参数
+>
+> > ```java
+> > @PostMapping("/signUp")
+> > public Result signUp(@Validated(INSERT.class) @RequestBody User user) {
+> >     return userService.addUser(user);
+> > }
+> > ```
+>
+> **前端**传参格式为: *(来源于"传参类型")*
+>
+> ```js
+> const p = {
+>     name: 'czp',
+>     pwd: '123'
+> }
+> 
+> request.get('/xxx', p);
+> ```
 
 
 
