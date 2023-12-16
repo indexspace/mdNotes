@@ -894,6 +894,8 @@ request.get('/xxx', {params:{...p}});
 
 ### Json | post | put | patch
 
+前端
+
 ```js
 const p = {
     name: 'czp',
@@ -902,6 +904,12 @@ const p = {
 
 request.get('/xxx', p);
 ```
+
+> **后端** : 在**唯一**参数前加上注解**`@RequestBoby `**
+>
+> ![image-20231211183808580](./image-20231211183808580.png)
+
+
 
 
 
@@ -1022,6 +1030,40 @@ request.get('/xxx', params);
 ![image-20231204165901793](./image-20231204165901793.png)
 
 2. 设置index属性![image-20231204164346123](./image-20231204164346123.png)
+
+
+
+
+
+## | 富文本组件
+
+<img src="./image-20231216181859042.png" alt="image-20231216181859042" style="zoom:67%;" />
+
+<img src="./image-20231216181915951.png" alt="image-20231216181915951" style="zoom:67%;" />
+
+> ```js
+> import {QuillEditor} from "@vueup/vue-quill";
+> import '@vueup/vue-quill/dist/vue-quill.snow.css';
+> ```
+>
+> ```HTML
+> <div class="editor">
+> 	<quill-editor 
+> 	theme="snow" 
+> 	v-model:content="updateArticleModel.content" 
+> 	content-type="html">
+> 	</quill-editor>
+> </div>
+> ```
+>
+> ```css
+> .editor {
+>     width: 100%;
+>     :deep(.ql-editor) {
+>         min-height: 100px;
+>     }
+> }
+
 
 
 
